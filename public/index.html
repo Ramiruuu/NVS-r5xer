@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Vulnerability Scanner</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="scanner-container">
+        <header class="scanner-header">
+            <h1>🔍 Network Vulnerability Scanner</h1>
+            <p>Advanced port scanning & CVE detection with real database</p>
+        </header>
+
+        <div class="scanner-grid">
+            <!-- Left Panel - Controls -->
+            <div class="scan-controls">
+                <div class="control-card">
+                    <h3>Scan Configuration</h3>
+                    
+                    <div class="input-group">
+                        <label for="target">Target IP/Hostname</label>
+                        <input type="text" id="target" placeholder="e.g., 192.168.1.1" value="127.0.0.1">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="scan-type">Scan Type</label>
+                        <select id="scan-type">
+                            <option value="tcp">TCP Connect Scan</option>
+                            <option value="syn">SYN Stealth Scan</option>
+                            <option value="udp">UDP Scan</option>
+                            <option value="comprehensive">Comprehensive Scan</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Port Range</label>
+                        <div class="port-range-input">
+                            <input type="number" id="port-start" value="1" min="1" max="65535">
+                            <span>to</span>
+                            <input type="number" id="port-end" value="1000" min="1" max="65535">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="service-detection" checked> Service Detection
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="os-detection"> OS Detection
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="vuln-scan" checked> Vulnerability Scan
+                        </label>
+                    </div>
+
+                    <button class="scan-btn" onclick="startScan()">
+                        <span class="btn-icon">⚡</span>
+                        Start Scan
+                    </button>
+                </div>
+
+                <div class="control-card">
+                    <h4>Quick Presets</h4>
+                    <div class="preset-buttons">
+                        <button onclick="setPreset('quick')" class="preset-btn">Quick Scan</button>
+                        <button onclick="setPreset('full')" class="preset-btn">Full Scan</button>
+                        <button onclick="setPreset('common')" class="preset-btn">Common Ports</button>
+                    </div>
+                </div>
+
+                <div class="control-card">
+                    <h4>Recent Scans</h4>
+                    <div id="recent-scans" class="recent-scans">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Results -->
+            <div class="scan-results">
+                <div class="results-header">
+                    <h3>Scan Results</h3>
+                    <div class="results-stats">
+                        <span id="open-ports-count">0</span> open ports
+                    </div>
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" id="scan-progress" style="width: 0%"></div>
+                </div>
+
+                <div id="results-summary"></div>
+
+                <div class="results-table">
+                    <div class="table-header">
+                        <span>Port</span>
+                        <span>State</span>
+                        <span>Service</span>
+                        <span>Version</span>
+                        <span>Vulnerabilities</span>
+                    </div>
+                    <div id="scan-results-list" class="results-list"></div>
+                </div>
+
+                <div class="vuln-summary" id="vuln-summary" style="display: none;">
+                    <h4>⚠️ Critical Vulnerabilities Found</h4>
+                    <div id="vuln-list"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+</html>
